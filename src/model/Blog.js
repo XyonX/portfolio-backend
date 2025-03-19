@@ -1,27 +1,58 @@
 import mongoose from "mongoose";
 
-const blogSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: [true, "Title is required"],
-    trim: true,
+const blogSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String, // Added description field
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    publicationDate: {
+      // Kept original name
+      type: Date,
+      default: Date.now,
+    },
+    categories: [
+      {
+        type: String, // Kept categories as an array
+      },
+    ],
+    tags: [
+      {
+        type: String,
+      },
+    ],
+    featuredImage: {
+      type: String, // Path to the uploaded image
+    },
+    mdFile: { type: String, required: true }, // Path to original MD file
+    status: {
+      type: String,
+      enum: ["draft", "published", "archived"],
+      default: "draft",
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    readTime: {
+      // Added readTime to store estimated reading time
+      type: Number,
+      required: true,
+    },
   },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  coverImage: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  {
+    timestamps: true, // Adds createdAt and updatedAt fields
+  }
+);
 
-//creatomt tje actual table(collection)
-//to store data
 export default mongoose.model("Blog", blogSchema);
