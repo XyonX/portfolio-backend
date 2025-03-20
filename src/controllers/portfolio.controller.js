@@ -14,16 +14,16 @@ const calculateReadingTime = (text) => {
 };
 
 /**
- * Get all Portfolios.
+ * Get all portfolios.
  */
 export const getPortfolios = async (req, res) => {
   try {
-    const Portfolios = await PortfolioService.getAllPortfolios();
-    res.status(200).json({ data: Portfolios });
+    const portfolios = await PortfolioService.getAllPortfolios();
+    res.status(200).json({ data: portfolios });
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Failed to fetch Portfolios", details: error.message });
+      .json({ error: "Failed to fetch portfolios", details: error.message });
   }
 };
 
@@ -56,7 +56,7 @@ export const getPortfolioBySlug = async (req, res) => {
 export const createPortfolio = async (req, res) => {
   try {
     console.log(
-      "[Createportfolio] Initial request body:",
+      "[CreatePortfolio] Initial request body:",
       JSON.stringify(req.body, null, 2)
     );
 
@@ -77,7 +77,7 @@ export const createPortfolio = async (req, res) => {
       : [];
     const tagsArray = tags ? tags.split(",").map((tag) => tag.trim()) : [];
 
-    console.log("[Createportfolio] Processed categories/tags:", {
+    console.log("[CreatePortfolio] Processed categories/tags:", {
       categoriesArray,
       tagsArray,
     });
@@ -172,23 +172,15 @@ export const createPortfolio = async (req, res) => {
 export const updatePortfolio = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedPortfolio = await PortfolioService.updatePortfolio(
-      id,
-      req.body
-    );
+    const updatedPortfolio = await PortfolioService.updatePortfolio(id, req.body);
 
     if (!updatedPortfolio) {
-      return res
-        .status(404)
-        .json({ error: "Portfolio not found or update failed" });
+      return res.status(404).json({ error: "Portfolio not found or update failed" });
     }
 
     res
       .status(200)
-      .json({
-        message: "Portfolio updated successfully",
-        data: updatedPortfolio,
-      });
+      .json({ message: "Portfolio updated successfully", data: updatedPortfolio });
   } catch (error) {
     res
       .status(500)
@@ -205,9 +197,7 @@ export const deletePortfolio = async (req, res) => {
     const deletedPortfolio = await PortfolioService.deletePortfolio(id);
 
     if (!deletedPortfolio) {
-      return res
-        .status(404)
-        .json({ error: "Portfolio not found or delete failed" });
+      return res.status(404).json({ error: "Portfolio not found or delete failed" });
     }
 
     res.status(200).json({ message: "Portfolio deleted successfully" });
