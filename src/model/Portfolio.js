@@ -49,6 +49,10 @@ const portfolioSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true, // Adds createdAt and updatedAt fields
