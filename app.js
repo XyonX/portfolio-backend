@@ -33,6 +33,10 @@ app.use("/api/blogs", blogRoutes); // Mounting the blog routes under /api/blogs
 app.use("/api/portfolios", portfolioRoutes); // Mounting the blog routes under /api/blogs
 app.use("/api/auth", adminRoutes); // Mounting the auth routes under /api/auth
 
+app.get("/", (req, res) => {
+  res.send("server running on vercel");
+});
+
 // Error handling (uncomment when implemented)
 // app.use(errorHandler);
 
