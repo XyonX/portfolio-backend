@@ -17,6 +17,7 @@ const __dirname = path.dirname(__filename);
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://joycodes.tech"], // Allow frontend
+    methods: "GET,POST,PUT,DELETE,PATCH",
     credentials: true, // Allow cookies
   })
 );
